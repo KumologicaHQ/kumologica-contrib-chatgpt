@@ -1,0 +1,27 @@
+{
+  "name": "@kumologica/kumologica-contrib-chatgpt",
+  "version": "0.0.1",
+  "description": "Node that connects with the ChatGPT AI platform",
+  "repository": {
+    "type": "git",
+    "url": "githttps://github.com/KumologicaHQ/kumologica-contrib-chatgpt.git"
+  },
+  "keywords": [
+    "kumologica",
+    "platform",
+    "chatgpt"
+  ],
+  "scripts": {
+    "pub": "npm publish --access public"
+  },
+  "dependencies": {
+    "@kumologica/devkit": "latest"
+  },
+  "kumologica": {
+    "nodes": {
+      "ChatGPT": "lib/ChatGPT.js"
+    }
+  },
+  "author": "Kumologica Team",
+  "license": "Copyright 2020 Kumologica, all rights reserved"
+}

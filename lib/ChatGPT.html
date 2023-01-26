@@ -1,0 +1,160 @@
+<script type="text/x-kumologica" data-template-name="ChatGPT">
+
+  <div class="kumo-window">
+
+    <!-- Display name -->
+    <div class="kumo-section">
+      <div class="kumo-row">
+        <label class="kumo-row-label" for="node-input-name"> <span>Display Name</span></label>
+        <input class="kumo-row-editable" type="text" id="node-input-name" placeholder="Name"/>
+      </div>
+    </div>
+
+    <!-- General Settings -->
+    <div class="kumo-section-title">General</div>
+    <div class="kumo-section"> 
+      
+      <div class="kumo-row-with-margin" id="operation">
+        <label class="kumo-row-label" for="node-input-operation">Operation</label>
+        <select class="kumo-row-editable" type="text" id="node-input-operation">
+          <option value="conversation">Conversation</option>
+          <option value="images">Images</option>
+        ;
+        </select>
+      </div>
+      <div class="kumo-row-with-margin" id="model">
+        <label class="kumo-row-label" for="node-input-operation">Model</label>
+        <select class="kumo-row-editable" type="text" id="node-input-model">
+          <option value="text-davinci-003">text-davinci-003</option>
+          <option value="babbage">babbage</option>
+          <option value="text-davinci-003">text-davinci-003</option>
+          <option value="ada">ada</option>
+          <option value="davinci">davinci</option>
+          <option value="curie-instruct-beta">curie-instruct-beta</option>
+          <option value="code-cushman-001">code-cushman-001</option>
+          <option value="code-davinci-002">code-davinci-002</option>
+          <option value="text-ada-001">text-ada-001</option>
+          <option value="text-davinci-002">text-davinci-002</option>
+          <option value="text-curie-001">text-curie-001</option>
+          <option value="davinci-instruct-beta">davinci-instruct-beta</option>
+          <option value="text-babbage-001">text-babbage-001</option>
+          <option value="curie">curie</option>
+        ;
+        </select>
+      </div>
+        <div class="kumo-row-with-margin" id="instruction" >
+          <label class="kumo-row-label" for="node-input-instruction">Instruction</label>
+          <input class="kumo-row-editable" type="text" id="node-input-instruction" placeholder="Instruction to ChatGPT"/>
+        </div>
+        <div class="kumo-row-with-margin" id="maxtoken" >
+          <label class="kumo-row-label" for="node-input-maxtoken">Maxtoken</label>
+          <input class="kumo-row-editable" type="text" id="node-input-maxtoken" placeholder="Maximum token allowed"/>
+        </div>
+        <div class="kumo-row-with-margin" id="noimages" >
+          <label class="kumo-row-label" for="node-input-noimages">Number of Images</label>
+          <input class="kumo-row-editable" type="text" id="node-input-noimages" placeholder="Number of Images"/>
+        </div>
+        <div class="kumo-row-with-margin" id="imagesize" >
+          <label class="kumo-row-label" for="node-input-imagesize">Image Size</label>
+          <input class="kumo-row-editable" type="text" id="node-input-imagesize" placeholder="Image size"/>
+        </div>
+      </div>
+  </div>
+
+  <!-- Security Settings -->
+  <div class="kumo-section-title">Security</div>
+  <div class="kumo-section">   
+    <div class="form-row" id="personaltoken">
+      <label class="kumo-row-label" for="node-input-personaltoken">Token</label>
+      <input type="password" id="node-input-personaltoken" placeholder="Personal access token"/>
+      <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password" style="margin: -10%"></span>
+    </div>
+  </div>
+  
+</div>
+
+</script>
+
+<script type="text/javascript">
+  App.nodes.registerType('ChatGPT', {
+    category: 'Platforms',
+    icon: 'kumo-chatgpt.png',
+    color: '#000000',
+    defaults: {
+      name: { value: 'ChatGPT' },
+      personaltoken: { value: '',templateable: true, required: true},
+      noimages: { value: '',templateable: true, required: false},
+      instruction: { value: '',templateable: true, required: false},
+      operation : { value: 'conversation'},
+      model : { value: 'text-davinci-003'},
+      maxtoken: { value: '',templateable: true, required: false},
+      imagesize: { value: '',templateable: true, required: false}
+    },
+    inputs: 1,
+    outputs: 1,
+    label: function () {
+      return this.name || 'ChatGPT';
+    },
+    oneditprepare: function(){
+
+      $('#node-input-operation').on('change', function () {
+        if (this.value === 'conversation') {
+          $("#instruction").show();
+          $("#maxtoken").show();
+          $("#imagesize").hide();
+          $("#noimages").hide();
+          $("#model").show();
+        }else{
+          $("#instruction").show();
+          $("#noimages").show();
+          $("#imagesize").show();
+          $("#model").hide();
+          $("#maxtoken").hide();
+        }
+      });
+      $("body").on('click', '.toggle-password', function() {
+        var input = $("#node-input-personaltoken");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+            $(this).removeClass('fa-eye-slash');    
+           $(this).addClass('fa-eye');
+        } else {
+            input.attr("type", "password");
+            $(this).removeClass('fa-eye');    
+           $(this).addClass('fa-eye-slash');
+        }
+      });
+    }
+  });
+</script>
+
+
+<script type="text/x-kumologica" data-help-name="ChatGPT">
+    <h4> Description </h4>
+    <p>ChatGPT node connects with the ChatGPT AI platform for accepting instructions and image generation.</p>
+   
+     <h4> Properties </h4>
+     <ul>
+     <li><i>Instruction</i> - (Optional). Request or prompt for ChatGPT to generate completions.</li>
+     <li><i>Model</i> - (Optional). Learning models supported by ChatGPT.</li>
+     <li><i>Max Token</i> - (Optional). The maximum number of tokens to generate in the completion. Default is 16</li>
+     <li><i>Number of Images</i> - (Optional). The number of images to generate. Must be between 1 and 10..</li>
+     <li><i>Image Size</i> - (Optional). The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.</li>
+     <li><i>Token</i> - (Optional). API Key provided by ChatGPT to access the platform.</li>
+     </ul>
+     
+     <h4> Throws </h4>
+     <ul>
+       <li>ChatGPTError</li>
+     </ul>
+     
+     
+     <h4> Returns </h4>
+     Payload will not be overwritten by this node.
+     None of the variables will be overwritten or enriched by this node. Response from the node can be accessed using <code>msg.header.ChatGPT</code>.
+     
+     <h4> More info </h4>
+     <a href="https://beta.openai.com/docs/introduction/overview">ChatGPT Attribute Reference</a><br>
+     <a href="https://docs.kumologica.com/docs/references/ChatGPT.html">Kumologica Documentation</a>
+</script>
+
