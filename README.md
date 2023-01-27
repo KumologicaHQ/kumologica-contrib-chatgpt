@@ -6,8 +6,8 @@ Kumologica node client for ChatGPT allows to connect with ChatGPT API platoform 
 ## Installation
 
 ### From Kumologica Designer
-Click on the "Add More Nodes" button at the bottom of "Nodes" panel, find MSSQL Node and press install. 
-You need to restart Kumologica Designer for the node to be loaded. MSSQL Node is accessible from "PLATFORMS" category.
+Click on the "Add More Nodes" button at the bottom of "Nodes" panel, find ChatGPT Node and press install. 
+You need to restart Kumologica Designer for the node to be loaded. ChatGPT Node is accessible from "PLATFORMS" category.
 ### From command line
 Go to the project directory and run from the console:
 ```bash
@@ -28,7 +28,7 @@ kl open
 ```
 
 ## More information
-For the documentation for MSSQL Node see: [MSSQL](https://docs.kumologica.com/docs/references/ChatGPT.html)
+For the documentation for ChatGPT Node see: [ChatGPT](https://docs.kumologica.com/docs/references/ChatGPT.html)
 
 For more information about Kumologica SDK Installation see: [Kumologica SDK Installation](https://docs.kumologica.com/docs/guide/GettingStarted.html#installation)
 
